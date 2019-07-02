@@ -24,8 +24,8 @@ function insertNumbers() { // types number on click
             let input = e.target.textContent;
            
             if(total.length === 1 && total === "0") calculatorScreen.textContent = ""; // replaces initial 0 with clicked number
-            if(total === "0" && input === "0") calculatorScreen.textContent = "0"; // not more then one 0 at the beginning
-            if(total === "Cannot divide by zero!") input = ""; // prevents further inputs      
+            if(total === "0" && input === "0") input = "0"; // not more then one 0 at the beginning
+            if(total === "Cannot divide by zero!") calculatorScreen.textContent = ""; // prevents further inputs      
 
             if(total.length > 24) calculatorScreen.style.padding = "30px 30px 70px 40px";
             if(total.length > 51) {
