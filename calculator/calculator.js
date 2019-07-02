@@ -25,8 +25,8 @@ function insertNumbers() { // types number on click
            
             if(total.length === 1 && total === "0") calculatorScreen.textContent = ""; // replaces initial 0 with clicked number
             if(total === "0" && input === "0") calculatorScreen.textContent = "0"; // not more then one 0 at the beginning
+            if(total === "Cannot divide by zero!") input = ""; // prevents further inputs      
 
-            // sets max number for displayed elements
             if(total.length > 24) calculatorScreen.style.padding = "30px 30px 70px 40px";
             if(total.length > 51) {
                 h1.textContent = "Too Many Digits!";
@@ -47,8 +47,9 @@ function insertOperators() { // types operator on click
             let input = e.target.textContent;
             let contains = e.target.classList.contains("operators"); //checks if the clicked operator contains the class .operators
             
+            if(total === "Cannot divide by zero!") input = ""; // prevents further inputs
             if(total.length > 51) input = ""; // stops inserting operator values when element limit is reached
-
+            
             //ensures operator values are not replacing each other
             if(total !== "" && last === "÷" && contains) input = "";
             if(total !== "" && last === "x" && contains) input = "";
@@ -82,10 +83,11 @@ function del() {
 function calculations() {
     result.addEventListener("click", () => {
         let total = calculatorScreen.textContent;
-        
+        let last = total[total.length -1];
+
         if(total.includes("÷")) total = total.replace(/÷/g, "/");
         if(total.includes("x")) total = total.replace(/x/g, "*");
-        
-        calculatorScreen.textContent = eval(total);
+        if(last === "0" && total[total.length -2] === "/") calculatorScreen.textContent = ("Cannot divide by zero!");
+        else calculatorScreen.textContent = eval(total);
     });
 }
